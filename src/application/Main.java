@@ -8,20 +8,30 @@ import javafx.scene.Parent;
 
 public class Main extends Application 
 {
+    private static Stage primaryStage;
+
 	@Override
 	public void start(Stage stage) 
 	{
 		try 
 		{
+			primaryStage = stage;
 			Parent root = FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
 			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			
 		} catch(Exception e) 
 		{
 			e.printStackTrace();
 		}
 	}
+	
+	public static void switchScene(String fxmlFile) throws Exception 
+	{
+        Parent root = FXMLLoader.load(Main.class.getResource(fxmlFile));
+        primaryStage.setScene(new Scene(root));
+    }
 	
 	public static void main(String[] args) {
 		launch(args);

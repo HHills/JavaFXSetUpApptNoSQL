@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.TextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="792.0" style="-fx-background-color: #e9edf5;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ApptController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="792.0" style="-fx-background-color: #e9edf5;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ApptController2">
    <children>
       <AnchorPane prefHeight="94.0" prefWidth="792.0" style="-fx-background-color: #5683cc;">
          <children>
@@ -33,19 +33,18 @@
          </font>
       </Label>
       <Separator layoutX="77.0" layoutY="150.0" opacity="0.45" prefHeight="2.0" prefWidth="680.0" style="-fx-background-color: #7796c7;" />
-      <DatePicker fx:id="datePicker" layoutX="527.0" layoutY="190.0" onAction="#addAppt" promptText="Enter a date" style="-fx-background-color: #7796c7;" />
+      <DatePicker fx:id="datePicker" layoutX="527.0" layoutY="190.0" onAction="#getDate" promptText="Enter a date" style="-fx-background-color: #7796c7;" />
       <Label fx:id="apptTLabel" layoutX="77.0" layoutY="193.0" text="Appointment Name:" textFill="#374a69">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="apptName1" layoutX="77.0" layoutY="227.0" text="Duration:" textFill="#374a69">
+      <Label fx:id="durationLabel" layoutX="77.0" layoutY="227.0" text="Duration:" textFill="#374a69">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <ChoiceBox fx:id="durationLength" layoutX="153.0" layoutY="224.0" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #d4e4ff; -fx-border-color: #869cbf;" />
-      <TextField fx:id="apptTitle" layoutX="219.0" layoutY="190.0" />
       <Button fx:id="cancelBtn" layoutX="124.0" layoutY="453.0" mnemonicParsing="false" onAction="#switchToFrontPage" prefHeight="26.0" prefWidth="165.0" style="-fx-background-radius: 30; -fx-background-color: #c2c6cc;" text="Cancel">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -56,5 +55,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <TextField fx:id="apptNameTxtField" layoutX="229.0" layoutY="190.0" />
    </children>
 </AnchorPane>
