@@ -57,10 +57,40 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="421.0" layoutY="208.0" text="Use this software to:">
+      <Label layoutX="421.0" layoutY="215.0" text="Use this software to:" underline="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="421.0" layoutY="235.0" prefHeight="46.0" prefWidth="304.0" text="• Schedule appointments with clients, managers, fellow co-workers, etc." wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="421.0" layoutY="282.0" prefHeight="46.0" prefWidth="304.0" text="• Keep track of upcoming meetings and appointments to avoid missing them." wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="421.0" layoutY="344.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="464.0" layoutY="344.0" text="Remember:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="547.0" layoutY="344.0" text="Keep grinding, keep rising!" textFill="#374a69">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="215.0" fitWidth="198.0" layoutX="491.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Resources/AETHERCORE%20DARK%20LOGO.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
