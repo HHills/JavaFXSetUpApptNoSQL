@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,5 +24,12 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <Label layoutX="229.0" layoutY="104.0" text="Schedule an Appointment" textFill="#374a69">
+         <font>
+            <Font name="Segoe UI Semibold" size="30.0" />
+         </font>
+      </Label>
+      <Separator layoutX="77.0" layoutY="150.0" opacity="0.45" prefHeight="2.0" prefWidth="680.0" style="-fx-background-color: #7796c7;" />
+      <DatePicker layoutX="529.0" layoutY="192.0" promptText="Enter a date" style="-fx-background-color: #7796c7;" />
    </children>
 </AnchorPane>
