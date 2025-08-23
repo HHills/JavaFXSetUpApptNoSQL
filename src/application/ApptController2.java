@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
 public class ApptController2 implements Initializable
 {
 	@FXML
-	private DatePicker DatePicker;
+	private DatePicker datePicker;
 	
 	
 	@FXML
@@ -28,7 +28,7 @@ public class ApptController2 implements Initializable
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
-	{
+	{	
 		durationLength.getItems().addAll(durationTimes);
 	}
 
@@ -44,8 +44,8 @@ public class ApptController2 implements Initializable
 
 	public void getDate(ActionEvent event) throws IOException
 	{
-		LocalDate myDate = DatePicker.getValue();
-		String myFormattedDate = myDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+		LocalDate myDate = datePicker.getValue();
+		String myFormattedDate = myDate.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
 		System.out.println(myFormattedDate);
 	}
 	
