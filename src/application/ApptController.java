@@ -4,11 +4,19 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 
 public class ApptController 
@@ -90,18 +98,49 @@ public class ApptController
 		TextFlow dateFlow = new TextFlow(dateIntroTitle, dateLabel);
 		TextFlow startFlow = new TextFlow(startIntroTitle, startLabel);
 		TextFlow endFlow = new TextFlow(endIntroTitle, endLabel);
-		TextFlow durationFlow = new TextFlow(durationIntroTitle, durationLabel, separator);
+		TextFlow durationFlow = new TextFlow(durationIntroTitle, durationLabel);
 		
 		
 		
-		apptInnerVBOX.getChildren().addAll(apptNameFlow, dateFlow, startFlow, endFlow, durationFlow);
+		apptInnerVBOX.getChildren().addAll(apptNameFlow, dateFlow, startFlow, endFlow, durationFlow, separator);
 		
-		apptMainVBOX.getChildren().addAll(apptInnerVBOX, separator);
+		apptMainVBOX.getChildren().addAll(apptInnerVBOX);
 	}
 	
 	public void deleteAppt(ActionEvent event) throws IOException
 	{
-		apptMainVBOX.getChildren().remove(1);
+		//apptMainVBOX.getChildren().remove(0);
+		Stage deletePopUpStg = new Stage();
+		deletePopUpStg.initModality(Modality.APPLICATION_MODAL);
+		deletePopUpStg.setTitle("Delete an Appointment");
+		
+		Label apptNameLabel = new Label("Please enter the name of the appointment you want deleted:");
+		TextField apptNameTxtField = new TextField();
+		
+		Label dateLabel = new Label("Please enter the date of the appointment you want deleted:");
+		TextField dateTxtField = new TextField();
+		
+		Label startTimeLabel = new Label("Please enter the starting time of the appointment you want deleted:");
+		TextField startTimeTxtField = new TextField();
+
+		
+		 
+		Button deleteOptionChosenBtn = new Button("Delete");
+		
+		deleteOptionChosenBtn.setOnAction(e -> {
+            System.out.println("User entered: " + apptNameTxtField.getText() + ", " + dateTxtField.getText() + ", " + startTimeTxtField.getText());
+            deletePopUpStg.close();
+        });
+		
+		
+		 VBox deleteVBOX = new VBox(10, apptNameLabel, apptNameTxtField, dateLabel, dateTxtField, startTimeLabel, startTimeTxtField, deleteOptionChosenBtn);
+	     deleteVBOX.setPadding(new Insets(15));
+	     deleteVBOX.setAlignment(Pos.CENTER);
+	     
+	     Scene deleteScene = new Scene(deleteVBOX, 550, 350);
+	     
+	     deletePopUpStg.setScene(deleteScene);
+	     deletePopUpStg.showAndWait();
 	}
 	
 	
