@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -176,21 +177,50 @@ public class ApptController
 		startTimeErrorImg.setFitWidth(24);
 		startTimeErrorImg.setFitHeight(26);
 		startTimeErrorImg.setPreserveRatio(true);
+		
 		 
 		HBox startContainer = new HBox(5, startTimeLabel, startTimeErrorImg);
 		startContainer.setAlignment(Pos.CENTER);
 		
 		
 		Label apptWarningMsg = new Label("Please enter the name of the appointment");
-		Label dateWarningMsg = new Label("Please either enter a date or ensure that it is in the correct format: M/d/yyyy (EX: 8/8/2025)");
-		Label startWarningMsg = new Label("Please either enter a starting time or ensure that is in the format: 0:00 AM/PM (EX: 1:00 PM)");
+		apptWarningMsg.setWrapText(true); 
+		apptWarningMsg.setMaxWidth(600);
+		apptWarningMsg.setFont(Font.font("System", FontWeight.BOLD,  12));
+		apptWarningMsg.setStyle("-fx-text-fill: #ff0000; " + "-fx-alignment: center;");
+
+		
+		Label dateWarningMsg = new Label("Please either enter a date or ensure that is in the format: M/d/yyyy (EX: 8/8/2025 or 8/31/2025)");
+		dateWarningMsg.setWrapText(true); 
+		dateWarningMsg.setMaxWidth(600);
+		dateWarningMsg.setFont(Font.font("System", FontWeight.BOLD,  12));
+		dateWarningMsg.setStyle("-fx-text-fill: #ff0000; " + "-fx-alignment: center;");
+		
+		Label startWarningMsg = new Label("Please either enter a starting time or ensure that is in the format: 0:00 AM/PM (EX: 1:00 PM or 12:00 PM)");
+		startWarningMsg.setWrapText(true); 
+		startWarningMsg.setMaxWidth(600);
+		startWarningMsg.setFont(Font.font("System", FontWeight.BOLD,  12));
+		startWarningMsg.setStyle("-fx-text-fill: #ff0000; " + "-fx-alignment: center;");
+		
+		Label searchFailureMsg = new Label ("Could not find the appointment: ");
+		searchFailureMsg.setWrapText(true); 
+		searchFailureMsg.setMaxWidth(600);
+		searchFailureMsg.setFont(Font.font("System", FontWeight.BOLD,  12));
+		searchFailureMsg.setStyle("-fx-text-fill: #ff0000; " + "-fx-alignment: center;");
+		
+		Region spacer1 = new Region();
+		spacer1.setPrefHeight(30);
+		
+		Region spacer2 = new Region();
+		spacer2.setPrefHeight(45);
 		 
-		VBox deleteVBOX = new VBox(10, apptContainer, apptNameTxtField, dateContainer, dateTxtField, startContainer, startTimeTxtField, deleteOptionChosenBtn);
+		VBox deleteVBOX = new VBox(10, apptContainer, apptNameTxtField, dateContainer, dateTxtField, startContainer, startTimeTxtField,
+								   spacer1, apptWarningMsg, dateWarningMsg, startWarningMsg, searchFailureMsg, spacer2, deleteOptionChosenBtn);
 	    deleteVBOX.setPadding(new Insets(20));
 	    deleteVBOX.setAlignment(Pos.CENTER);
 	    deleteVBOX.setStyle("-fx-background-color: #e9edf5;");
 	     
-	    Scene deleteScene = new Scene(deleteVBOX, 550, 300);
+	    Scene deleteScene = new Scene(deleteVBOX, 700, 550);
 	    
 	    deleteOptionChosenBtn.setOnAction(e -> {
             System.out.println("User entered: " + apptNameTxtField.getText() + ", " + dateTxtField.getText() + ", " + startTimeTxtField.getText());
