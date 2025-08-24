@@ -25,14 +25,19 @@ import java.util.ResourceBundle;
 
 public class ApptController 
 {
+	private Main mainApp;
 	
 	@FXML
 	private VBox apptMainVBOX;
 	
-
+	public void setMainApp(Main mainApp) 
+	{
+	        this.mainApp = mainApp;
+	}
+	
 	public void switchToTheApptSche(ActionEvent event) throws Exception 
 	{
-		Main.switchScene("ApptSchedule.fxml");
+		Main.switchToTheApptSche();
 	}
 	
 	public void receiveAndDisplayAppt(String apptName, String date, String start, String end, String duration) throws Exception
@@ -45,18 +50,28 @@ public class ApptController
 		
 		Label apptNameLabel = new Label(apptName);
 		apptNameLabel.setFont(Font.font("Segoe UI Semibold", 14));
+		apptNameLabel.setWrapText(true); 
+		apptNameLabel.setMaxWidth(400);
 
 		Label dateLabel = new Label(date); 
 		dateLabel.setFont(Font.font("Segoe UI Semibold", 14));
+		dateLabel.setWrapText(true); 
+		dateLabel.setMaxWidth(400);
 
 		Label startLabel = new Label(start);
 		startLabel.setFont(Font.font("Segoe UI Semibold", 14));
+		startLabel.setWrapText(true); 
+		startLabel.setMaxWidth(400);
 
 		Label endLabel = new Label(end);
 		endLabel.setFont(Font.font("Segoe UI Semibold", 14));
+		endLabel.setWrapText(true); 
+		endLabel.setMaxWidth(400);
 
 		Label durationLabel = new Label(duration);
 		durationLabel.setFont(Font.font("Segoe UI Semibold", 14));
+		durationLabel.setWrapText(true); 
+		durationLabel.setMaxWidth(400);
 
 		
 		Label apptIntroTitle = new Label("Appointment Name: ");

@@ -24,6 +24,8 @@ import javafx.scene.image.ImageView;
 
 public class ApptController2 implements Initializable
 {
+	private Main mainApp;
+	 
 	@FXML
 	private DatePicker datePicker;
 	
@@ -68,11 +70,14 @@ public class ApptController2 implements Initializable
 	
 	private String finalDuration;
 	
-	
 	private String[] meetingTimes = {"12:00 AM","12:15 AM","12:30 AM","12:45 AM","1:00 AM","1:15 AM","1:30 AM","1:45 AM","2:00 AM","2:15 AM","2:30 AM","2:45 AM","3:00 AM","3:15 AM","3:30 AM","3:45 AM","4:00 AM","4:15 AM","4:30 AM","4:45 AM","5:00 AM","5:15 AM","5:30 AM","5:45 AM","6:00 AM","6:15 AM","6:30 AM","6:45 AM","7:00 AM","7:15 AM","7:30 AM","7:45 AM","8:00 AM","8:15 AM","8:30 AM","8:45 AM","9:00 AM","9:15 AM","9:30 AM","9:45 AM","10:00 AM","10:15 AM","10:30 AM","10:45 AM","11:00 AM","11:15 AM","11:30 AM","11:45 AM","12:00 PM","12:15 PM","12:30 PM","12:45 PM","1:00 PM","1:15 PM","1:30 PM","1:45 PM","2:00 PM","2:15 PM","2:30 PM","2:45 PM","3:00 PM","3:15 PM","3:30 PM","3:45 PM","4:00 PM","4:15 PM","4:30 PM","4:45 PM","5:00 PM","5:15 PM","5:30 PM","5:45 PM","6:00 PM","6:15 PM","6:30 PM","6:45 PM","7:00 PM","7:15 PM","7:30 PM","7:45 PM","8:00 PM","8:15 PM","8:30 PM","8:45 PM","9:00 PM","9:15 PM","9:30 PM","9:45 PM","10:00 PM","10:15 PM","10:30 PM","10:45 PM","11:00 PM","11:15 PM","11:30 PM","11:45 PM"};
 
-	
 
+	
+	public void setMainApp(Main mainApp) 
+	{
+	        this.mainApp = mainApp;
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
@@ -93,13 +98,19 @@ public class ApptController2 implements Initializable
 		
 		
 		startTime.getSelectionModel().selectedItemProperty().addListener((observe, oldVal, newVal) -> {
-            System.out.println("Start time selected: " + newVal);
-            checkBothSelected();
+			if(newVal != null)
+			{
+				System.out.println("Start time selected: " + newVal);
+				checkBothSelected();
+			}
         });
 		
 		endTime.getSelectionModel().selectedItemProperty().addListener((observe, oldVal, newVal) -> {
-            System.out.println("End time selected: " + newVal);
-            checkBothSelected();
+            if(newVal != null)
+            {
+            	System.out.println("End time selected: " + newVal);
+            	checkBothSelected();
+            }
         });
 		
 		apptErrorLabel.setVisible(false);
@@ -111,24 +122,21 @@ public class ApptController2 implements Initializable
         endTimeErrorLabel.setVisible(false);
         endTimeErrorImg.setVisible(false);
 
-
 	}
 
 	public void switchToFrontPage(ActionEvent event) throws Exception 
 	{
-		 /* root = FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
-		  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		  scene = new Scene(root);
-		  stage.setScene(scene);
-		  stage.show(); */
-		Main.switchScene("FrontPage.fxml");
+		Main.switchToFrontPage();
 	}
 
 	public void getDate(ActionEvent event) throws IOException
 	{
-		LocalDate myDate = datePicker.getValue();
-		formattedDate = myDate.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
-		System.out.println(formattedDate);
+		if(datePicker.getValue() != null)
+		{
+			LocalDate myDate = datePicker.getValue();
+			formattedDate = myDate.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+			System.out.println(formattedDate);
+		}
 	}
 	
 	public void addAppt(ActionEvent event) throws Exception
@@ -146,20 +154,21 @@ public class ApptController2 implements Initializable
 			System.out.println("Duration: " + finalDuration);
 			
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("FrontPage.fxml"));
-			Parent root = loader.load();
-			ApptController apptController = (ApptController) loader.getController();
+			//FXMLLoader loader = new FXMLLoader(getClass().getResource("FrontPage.fxml"));
+			//Parent root = loader.load();
+			//ApptController apptController = (ApptController) loader.getController();
 			
 			try 
 			{
-				apptController.receiveAndDisplayAppt(apptNameTxtField.getText(), formattedDate, startTime.getValue(), endTime.getValue(), finalDuration);
+				Main.apptController.receiveAndDisplayAppt(apptNameTxtField.getText(), formattedDate, startTime.getValue(), endTime.getValue(), finalDuration);
 			} 
 			catch (Exception e) 
 			{
 				e.printStackTrace();
 			}
 			
-			Main.primaryStage.setScene(new Scene(root));
+			clear();
+			Main.switchToFrontPage();
 		}
 		
 		
@@ -265,6 +274,16 @@ public class ApptController2 implements Initializable
 	        calculatedDuration.setText(hours + " hrs " + minutes + " mins");
 
 		}
+	}
+	
+	public void clear()
+	{
+        apptNameTxtField.setText("");
+        formattedDate = null;
+        datePicker.setValue(null);
+        startTime.getSelectionModel().clearSelection();
+        endTime.getSelectionModel().clearSelection();
+        calculatedDuration.setText("");
 	}
 		
 }
