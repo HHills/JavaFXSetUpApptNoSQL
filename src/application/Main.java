@@ -45,9 +45,13 @@ public class Main extends Application
 	        apptController2.setMainApp(this);
 	        
 	        
+	        
 			//Parent root = FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
 			
 			scene = new Scene(apptControllerRoot);
+			
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
@@ -62,6 +66,7 @@ public class Main extends Application
 	{
        // Parent root = FXMLLoader.load(Main.class.getResource(fxmlFile));
        // primaryStage.setScene(new Scene(root));
+		
 		
 		try 
 		{

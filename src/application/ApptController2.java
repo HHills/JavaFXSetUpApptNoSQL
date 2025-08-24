@@ -10,13 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -36,10 +34,10 @@ public class ApptController2 implements Initializable
 	private Label calculatedDuration;
 	
 	@FXML
-	private ChoiceBox<String> startTime;
+	private ComboBox<String> startTime;
 	
 	@FXML
-	private ChoiceBox<String> endTime;
+	private ComboBox<String> endTime;
 	
 	
 	@FXML

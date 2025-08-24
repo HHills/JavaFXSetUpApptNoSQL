@@ -1,26 +1,14 @@
 package application;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
-import javafx.scene.control.ChoiceBox;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 public class ApptController 
@@ -109,6 +97,11 @@ public class ApptController
 		apptInnerVBOX.getChildren().addAll(apptNameFlow, dateFlow, startFlow, endFlow, durationFlow);
 		
 		apptMainVBOX.getChildren().addAll(apptInnerVBOX, separator);
+	}
+	
+	public void deleteAppt(ActionEvent event) throws IOException
+	{
+		apptMainVBOX.getChildren().remove(1);
 	}
 	
 	
