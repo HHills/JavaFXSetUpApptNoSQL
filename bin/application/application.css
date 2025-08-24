@@ -2,3 +2,8 @@
 {
     -fx-max-height: 50px; /* Adjust height as needed */
 }
+
+.vbox 
+{
+    -fx-background-color:  #e9edf5; /* Background Blue */
+}
