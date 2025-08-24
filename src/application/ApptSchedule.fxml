@@ -39,12 +39,11 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="durationLabel" layoutX="77.0" layoutY="227.0" text="Duration:" textFill="#374a69">
+      <Label fx:id="durationLabel" layoutX="81.0" layoutY="346.0" text="Duration:" textFill="#374a69">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="durationLength" layoutX="153.0" layoutY="224.0" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #d4e4ff; -fx-border-color: #869cbf;" />
       <Button fx:id="cancelBtn" layoutX="124.0" layoutY="453.0" mnemonicParsing="false" onAction="#switchToFrontPage" prefHeight="26.0" prefWidth="165.0" style="-fx-background-radius: 30; -fx-background-color: #c2c6cc;" text="Cancel">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -56,5 +55,62 @@
          </font>
       </Button>
       <TextField fx:id="apptNameTxtField" layoutX="229.0" layoutY="190.0" />
+      <Label layoutX="77.0" layoutY="239.0" text="Start Time:" textFill="#374a69">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="startTime" layoutX="158.0" layoutY="235.0" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #d4e4ff; -fx-border-color: #869cbf;" />
+      <Label layoutX="80.0" layoutY="290.0" text="End Time:" textFill="#374a69">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="endTime" layoutX="158.0" layoutY="286.0" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #d4e4ff; -fx-border-color: #869cbf;" />
+      <Label fx:id="calculatedDuration" layoutX="156.0" layoutY="346.0" text=" ">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="apptErrorImg" fitHeight="26.0" fitWidth="24.0" layoutX="384.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Resources/exclamation.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="startTimeErrorImg" fitHeight="26.0" fitWidth="24.0" layoutX="278.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Resources/exclamation.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="endTimeErrorImg" fitHeight="26.0" fitWidth="24.0" layoutX="278.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Resources/exclamation.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dateErrorImg" fitHeight="26.0" fitWidth="24.0" layoutX="710.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Resources/exclamation.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="apptErrorLabel" layoutX="296.0" layoutY="376.0" text="Please enter the name of the appointment." textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateErrorLabel" layoutX="301.0" layoutY="394.0" text="Please enter the date of the appointment." textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="startTimeErrorLabel" layoutX="342.0" layoutY="412.0" text="START TIME is missing." textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="endTimeErrorLabel" layoutX="349.0" layoutY="430.0" text="END TIME is missing." textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

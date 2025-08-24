@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.ChoiceBox;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,41 +22,37 @@ import java.util.ResourceBundle;
 
 public class ApptController 
 {
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
-	
 	
 	@FXML
-	private TextField apptNameTxtField;
-	
-	@FXML
-	private Label frontPgDate;
+	private VBox apptMainVBOX;
 	
 
 	public void switchToTheApptSche(ActionEvent event) throws Exception 
 	{
-		 /* root = FXMLLoader.load(getClass().getResource("ApptSchedule.fxml"));
-		  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		  scene = new Scene(root);
-		  stage.setScene(scene);
-		  stage.show(); */
 		Main.switchScene("ApptSchedule.fxml");
 	}
 	
-	//public void switchToFrontPage(ActionEvent event) throws Exception 
-	//{
-		 /* root = FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
-		  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		  scene = new Scene(root);
-		  stage.setScene(scene);
-		  stage.show(); */
-		//Main.switchScene("FrontPage.fxml");
-	//}
-	
-	public void addAppt(ActionEvent event) throws IOException
+	public void receiveAndDisplayAppt(String apptName, String date, String start, String end, String duration) throws Exception
 	{
 		System.out.println("Adding now...");
+		
+		VBox apptInnerVBOX  = new VBox(10);
+		
+		Label apptNameLabel = new Label();
+		Label dateLabel = new Label(); 
+		Label startLabel = new Label();
+		Label endLabel = new Label();
+		Label durationLabel = new Label();
+		
+		apptNameLabel.setText("Appointment Name: " + apptName);
+		dateLabel.setText("Date: " + date);
+		startLabel.setText("Start Time: " + start);
+		endLabel.setText("End Time: " + end);
+		durationLabel.setText("Duration: " + duration);
+		
+		apptInnerVBOX.getChildren().addAll(apptNameLabel, dateLabel, startLabel, endLabel, durationLabel);
+		
+		apptMainVBOX.getChildren().add(apptInnerVBOX);
 	}
 	
 	
