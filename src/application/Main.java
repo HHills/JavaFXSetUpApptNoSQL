@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -16,6 +17,11 @@ public class Main extends Application
 		try 
 		{
 			primaryStage = stage;
+	        primaryStage.setTitle("AetherCore Appointment Scheduler");
+	        
+	        primaryStage.getIcons().add(new Image("file:Resources/TASKBAR AND WINDOW ICON AETHERCORE LOGO.png"));
+	        
+	        
 			Parent root = FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
