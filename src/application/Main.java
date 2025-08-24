@@ -18,7 +18,7 @@ public class Main extends Application
 		{
 			primaryStage = stage;
 			
-			primaryStage.setResizable(false);
+			//primaryStage.setResizable(false);
 			
 	        primaryStage.setTitle("AetherCore Appointment Scheduler");
 	        
