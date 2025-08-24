@@ -17,15 +17,20 @@ public class Main extends Application
 		try 
 		{
 			primaryStage = stage;
+			
+			primaryStage.setResizable(false);
+			
 	        primaryStage.setTitle("AetherCore Appointment Scheduler");
 	        
 	        primaryStage.getIcons().add(new Image("file:Resources/TASKBAR AND WINDOW ICON AETHERCORE LOGO.png"));
 	        
 	        
 			Parent root = FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
+			
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
 			
 		} catch(Exception e) 
 		{
