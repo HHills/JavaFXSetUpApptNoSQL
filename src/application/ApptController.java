@@ -136,6 +136,7 @@ public class ApptController
 		dateLabel.setStyle("-fx-text-fill: #374a69");
 		
 		TextField dateTxtField = new TextField();
+		dateTxtField.setPromptText("M/d/yyyy (EX: 8/8/2025, 8/31/2025)");
 		dateTxtField.setPrefWidth(200); 
 		dateTxtField.setMinWidth(100); 
 		dateTxtField.setMaxWidth(600);
@@ -148,6 +149,8 @@ public class ApptController
 		startTimeTxtField.setPrefWidth(200); 
 		startTimeTxtField.setMinWidth(100); 
 		startTimeTxtField.setMaxWidth(600);
+		startTimeTxtField.setPromptText("0:00 AM/PM (EX: 8:00 PM, 12:00 AM)");
+
 
 		
 		 
@@ -190,13 +193,13 @@ public class ApptController
 		apptWarningMsg.setStyle("-fx-text-fill: #ff0000; " + "-fx-alignment: center;");
 
 		
-		Label dateWarningMsg = new Label("Please either enter a date or ensure that is in the format: M/d/yyyy (EX: 8/8/2025 or 8/31/2025)");
+		Label dateWarningMsg = new Label("Error: Either no date was entered or date isn't in M/d/yyyy (EX: 8/8/2025, 8/31/2025)");
 		dateWarningMsg.setWrapText(true); 
 		dateWarningMsg.setMaxWidth(600);
 		dateWarningMsg.setFont(Font.font("System", FontWeight.BOLD,  12));
 		dateWarningMsg.setStyle("-fx-text-fill: #ff0000; " + "-fx-alignment: center;");
 		
-		Label startWarningMsg = new Label("Please either enter a starting time or ensure that is in the format: 0:00 AM/PM (EX: 1:00 PM or 12:00 PM)");
+		Label startWarningMsg = new Label("Error: either no starting time was entered or time isn't in 0:00 AM/PM (EX: 8:00 PM, 12:00 AM)");
 		startWarningMsg.setWrapText(true); 
 		startWarningMsg.setMaxWidth(600);
 		startWarningMsg.setFont(Font.font("System", FontWeight.BOLD,  12));
