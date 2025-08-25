@@ -8,6 +8,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -248,7 +250,13 @@ public class ApptController
 	    	
 	    	if(numOfErrors == 0)
 	    	{
-	    		findAppt(apptNameTxtField.getText(), dateTxtField.getText(), startTimeTxtField.getText(), searchFailureMsg);
+	    		boolean found = findAppt(apptNameTxtField.getText(), dateTxtField.getText(), startTimeTxtField.getText(), searchFailureMsg);
+	    		
+	    		if(found == true)
+	    		{
+	    			displayDeletedPopUp(apptNameTxtField.getText(), dateTxtField.getText(), startTimeTxtField.getText());
+	    			deletePopUpStg.close();
+	    		}
 	    	}
 	    	
             //System.out.println("User entered: " + apptNameTxtField.getText() + ", " + dateTxtField.getText() + ", " + startTimeTxtField.getText());
@@ -309,7 +317,7 @@ public class ApptController
 	}
 	
 	
-	public void findAppt(String apptName, String date, String startTime, Label searchFailureMsg)
+	public boolean findAppt(String apptName, String date, String startTime, Label searchFailureMsg)
 	{
 		boolean found = false;
 		
@@ -326,9 +334,6 @@ public class ApptController
 
 			if(innerVBOXApptName.getText().equals(apptName))
 			{
-				System.out.println("ApptContainer Child: " +  innerVBOXApptName.getText());
-				System.out.println("Appt Name: " + apptName);
-				
 				//Getting the next two TextFlows to get the name data
 				TextFlow dateContainer = (TextFlow) innerBox.getChildren().get(DATE_INDEX); 
 				TextFlow startContainer = (TextFlow) innerBox.getChildren().get(START_TIME_INDEX);
@@ -338,14 +343,8 @@ public class ApptController
 				
 				if(innerVBOXDate.getText().equals(date) && innerVBOXStartTime.getText().equals(startTime))
 				{
-					System.out.println("DateContainer Child: " +  innerVBOXDate.getText());
-					System.out.println("Date Name: " + date);
-					
-					System.out.println("StartContainer Child: " + innerVBOXStartTime.getText());
-					System.out.println("Start Time Name: " + startTime);
-
 					found = true;
-					removeAndDisplay(i);
+					apptMainVBOX.getChildren().remove(i);
 					break;
 				}
 			}
@@ -361,14 +360,23 @@ public class ApptController
 			searchFailureMsg.setVisible(false);
 		}
 		
-		
+		return found;
 	}
 	
-	public void removeAndDisplay(int mainIndex)
+	public void displayDeletedPopUp(String apptName, String date, String startTime)
 	{
-		apptMainVBOX.getChildren().remove(mainIndex);
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Successful Deletion");
+		alert.setHeaderText(null);
+		alert.setContentText("Appointment: \"" + apptName + ", on " + date + ", starting at " + startTime + "\" has been deleted!");
 		
-		System.out.println("Removed!");
+		
+		
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("file:Resources/TASKBAR AND WINDOW ICON AETHERCORE LOGO DELETE VERSION.png"));  // changing window icon
+
+		alert.showAndWait();
+
 	}
 	
 	
