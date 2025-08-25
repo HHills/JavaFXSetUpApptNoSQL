@@ -344,14 +344,22 @@ public class ApptController
 					System.out.println("StartContainer Child: " + innerVBOXStartTime.getText());
 					System.out.println("Start Time Name: " + startTime);
 
-					removeAndDisplay(i);
 					found = true;
+					removeAndDisplay(i);
+					break;
 				}
 			}
 		}// end for
 		
-		searchFailureMsg.setText("Could not find the appointment: " + apptName + ", on " + date + " , starting at " + startTime);
-		searchFailureMsg.setVisible(true);
+		if(found == false)
+		{
+			searchFailureMsg.setText("Could not find the appointment: " + apptName + ", on " + date + ", starting at " + startTime);
+			searchFailureMsg.setVisible(true);
+		}
+		else
+		{
+			searchFailureMsg.setVisible(false);
+		}
 		
 		
 	}
