@@ -225,9 +225,21 @@ public class ApptController
 	     
 	    Scene deleteScene = new Scene(deleteVBOX, 700, 550);
 	    
+		apptErrorImg.setVisible(false);
+		dateErrorImg.setVisible(false);
+		startTimeErrorImg.setVisible(false);
+		
+		apptWarningMsg.setVisible(false);
+		dateWarningMsg.setVisible(false);
+		startWarningMsg.setVisible(false);
+		searchFailureMsg.setVisible(false);
+	    
+	    
 	    deleteOptionChosenBtn.setOnAction(e -> {
-            System.out.println("User entered: " + apptNameTxtField.getText() + ", " + dateTxtField.getText() + ", " + startTimeTxtField.getText());
-            deletePopUpStg.close();
+	    	inputValidation(apptNameTxtField.getText(), dateTxtField.getText(), startTimeTxtField.getText(),
+	    					apptErrorImg, dateErrorImg, startTimeErrorImg, apptWarningMsg, dateWarningMsg, startWarningMsg);
+            //System.out.println("User entered: " + apptNameTxtField.getText() + ", " + dateTxtField.getText() + ", " + startTimeTxtField.getText());
+            //deletePopUpStg.close();
         });
 	     
 	    deletePopUpStg.setScene(deleteScene);
@@ -236,17 +248,51 @@ public class ApptController
 	     
 	}
 	
-	public int inputValidation(String chosenApptName, String chosenDate, String chosenStartTime, ImageView appErrorImg)
+	public int inputValidation(String chosenApptName, String chosenDate, String chosenStartTime, ImageView apptErrorImg, ImageView dateErrorImg, ImageView startTimeErrorImg, Label warningAppt, Label warningDate, Label warningStart)
 	{
 		int inputFailures = 0;
 		
 		if(chosenApptName.isBlank())
 		{
 			inputFailures += 1;
+			
+			apptErrorImg.setVisible(true);
+			warningAppt.setVisible(true);
+		}
+		else
+		{
+			apptErrorImg.setVisible(false);
+			warningAppt.setVisible(false);
 		}
 		
+		if(!chosenDate.matches("^([1-9]|1[0-2])/([1-9]|[12][0-9]|3[01])/([0-9]{4})$"))
+		{
+			inputFailures += 1;
+			
+			dateErrorImg.setVisible(true);
+			warningDate.setVisible(true);
+
+		}
+		else
+		{
+			dateErrorImg.setVisible(false);
+			warningDate.setVisible(false);
+		}
 		
-		return inputFailures;
+		if(!chosenStartTime.matches("^([1-9]|1[0-2]):[0-5][0-9]\\s?(AM|PM)$"))
+		{
+			inputFailures += 1;
+			
+			startTimeErrorImg.setVisible(true);
+			warningStart.setVisible(true);
+		}
+		else
+		{
+			startTimeErrorImg.setVisible(false);
+			warningStart.setVisible(false);
+		}
+		
+			return inputFailures;
 	}
 	
 	
