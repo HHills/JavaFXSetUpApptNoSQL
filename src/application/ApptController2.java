@@ -176,7 +176,7 @@ public class ApptController2 implements Initializable
 	{
 		int inputFailures = 0;
 		
-		if(apptNameTxtField.getText().isBlank())
+		if(apptNameTxtField.getText().isBlank() || apptNameTxtField.getText().contains(","))
 		{
 			apptErrorLabel.setVisible(true);
 	        apptErrorImg.setVisible(true);

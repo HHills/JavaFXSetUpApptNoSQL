@@ -1,6 +1,9 @@
 package application;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,14 +37,22 @@ public class ApptController
 	private static final int NAME_INDEX = 0;
 	private static final int DATE_INDEX = 1;
 	private static final int START_TIME_INDEX = 2;
+	private static final int END_TIME_INDEX = 3;
+	private static final int DURATION_INDEX = 4;
+	private final String FILENAME = "user_appointments.csv";
 
 	
 	@FXML
 	private VBox apptMainVBOX;
 	
-	public void setMainApp(Main mainApp) 
+	private FileHandler handler;
+	private List<Appointments> appts;
+	
+	public void setMainApp(Main mainApp, FileHandler handler, List<Appointments> appts) 
 	{
 	        this.mainApp = mainApp;
+	        this.handler = handler;
+	        this.appts = appts;
 	}
 	
 	public void switchToTheApptSche(ActionEvent event) throws Exception 
@@ -50,9 +61,7 @@ public class ApptController
 	}
 	
 	public void receiveAndDisplayAppt(String apptName, String date, String start, String end, String duration) throws Exception
-	{
-		System.out.println("Adding now...");
-		
+	{		
 		apptMainVBOX.setSpacing(10);
 		
 		VBox apptInnerVBOX  = new VBox(10);
@@ -379,6 +388,72 @@ public class ApptController
 
 	}
 	
+	public void saveData()
+	{
+		appts.clear();
+
+		for(int i = 0; i < apptMainVBOX.getChildren().size(); i++)
+		{
+			VBox innerBox = (VBox) apptMainVBOX.getChildren().get(i);
+			
+			TextFlow apptContainer = (TextFlow) innerBox.getChildren().get(NAME_INDEX);
+			TextFlow dateContainer = (TextFlow) innerBox.getChildren().get(DATE_INDEX); 
+			TextFlow startContainer = (TextFlow) innerBox.getChildren().get(START_TIME_INDEX);
+			TextFlow endContainer = (TextFlow) innerBox.getChildren().get(END_TIME_INDEX); 
+			TextFlow durationContainer = (TextFlow) innerBox.getChildren().get(DURATION_INDEX);
+			
+			
+			Label innerVBOXApptName = (Label) apptContainer.getChildren().get(1); 
+			Label innerVBOXDate = (Label) dateContainer.getChildren().get(1);
+			Label innerVBOXStartTime = (Label) startContainer.getChildren().get(1);
+			Label innerVBOXEndTime = (Label) endContainer.getChildren().get(1);
+			Label innerVBOXDuration = (Label) durationContainer.getChildren().get(1);
+			
+			
+			Appointments appt = new Appointments(innerVBOXApptName.getText(), innerVBOXDate.getText(), 
+												innerVBOXStartTime.getText(), innerVBOXEndTime.getText(), 
+												innerVBOXDuration.getText());
+			
+			appts.add(appt);
+		}
+		
+		handler.saveData(appts, FILENAME);
+	}
+	
+	public void loadData() throws Exception
+	{
+		int apptCount = 0;
+		
+		System.out.println("Loading Appointment Data...");
+		
+		if(Files.exists(Path.of(FILENAME)))
+		{
+			appts = handler.loadData(FILENAME);
+			
+			for (int i = 0; i < appts.size(); i++) 
+			{
+				Appointments appt = appts.get(i);
+				
+				receiveAndDisplayAppt(appt.getApptName(), appt.getDate(), 
+								      appt.getStartTime(), appt.getEndTime(), appt.getDuration());
+				
+				apptCount++;
+	        }
+			
+			if(apptCount != 0)
+			{	
+				System.out.println(apptCount + " appointment(s) loaded!");
+			}
+			else
+			{
+				System.out.println("No Appointment Data Present.\nStarting new file...");
+			}
+		}
+		else
+		{
+			System.out.println("No Appointment Data Present.\nStarting new file...");
+		}
+	}
 	
 	
 }

@@ -1,7 +1,11 @@
 package application;
 	
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +22,9 @@ public class Main extends Application
     private ApptController2 apptController2;
     
     private static Scene scene;
+    private List<Appointments> appts = new ArrayList<>();
+	private FileHandler handler = new FileHandler();
+    
     
     
 	@Override
@@ -37,7 +44,7 @@ public class Main extends Application
 	        FXMLLoader apptControllerLoader1 = new FXMLLoader(getClass().getResource("FrontPage.fxml"));
 	        apptControllerRoot = apptControllerLoader1.load();
 	        apptController = apptControllerLoader1.getController();
-	        apptController.setMainApp(this);
+	        apptController.setMainApp(this, handler, appts);
 	        
 	        FXMLLoader apptControllerLoader2 = new FXMLLoader(getClass().getResource("ApptSchedule.fxml"));
 	        apptController2Root = apptControllerLoader2.load();
@@ -45,13 +52,19 @@ public class Main extends Application
 	        apptController2.setMainApp(this);
 	        
 	        
-	        
-			//Parent root = FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
-			
+	        			
 			scene = new Scene(apptControllerRoot);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
+			primaryStage.setOnCloseRequest((WindowEvent event) -> 
+			{
+	            System.out.println("Exiting Program...\nSaving Appointment Data...");
+	            apptController.saveData();
+	            
+	            
+	        });
+			apptController.loadData();
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
@@ -64,10 +77,6 @@ public class Main extends Application
 	
 	public static void switchToTheApptSche() throws Exception 
 	{
-       // Parent root = FXMLLoader.load(Main.class.getResource(fxmlFile));
-       // primaryStage.setScene(new Scene(root));
-		
-		
 		try 
 		{
 			 scene.setRoot(apptController2Root);
