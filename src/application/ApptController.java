@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,6 +28,11 @@ import javafx.stage.Stage;
 public class ApptController 
 {
 	private Main mainApp;
+	
+	private static final int NAME_INDEX = 0;
+	private static final int DATE_INDEX = 1;
+	private static final int START_TIME_INDEX = 2;
+
 	
 	@FXML
 	private VBox apptMainVBOX;
@@ -114,7 +120,6 @@ public class ApptController
 	
 	public void deleteAppt(ActionEvent event) throws IOException
 	{
-		int numOfErrors;
 		
 		//apptMainVBOX.getChildren().remove(0);
 		Stage deletePopUpStg = new Stage();
@@ -236,8 +241,16 @@ public class ApptController
 	    
 	    
 	    deleteOptionChosenBtn.setOnAction(e -> {
-	    	inputValidation(apptNameTxtField.getText(), dateTxtField.getText(), startTimeTxtField.getText(),
-	    					apptErrorImg, dateErrorImg, startTimeErrorImg, apptWarningMsg, dateWarningMsg, startWarningMsg);
+	    	int numOfErrors = inputValidation(apptNameTxtField.getText(), dateTxtField.getText(), 
+	    					  startTimeTxtField.getText(), apptErrorImg, dateErrorImg, 
+	    					  startTimeErrorImg, apptWarningMsg, dateWarningMsg, startWarningMsg);
+	    	
+	    	
+	    	if(numOfErrors == 0)
+	    	{
+	    		findAppt(apptNameTxtField.getText(), dateTxtField.getText(), startTimeTxtField.getText(), searchFailureMsg);
+	    	}
+	    	
             //System.out.println("User entered: " + apptNameTxtField.getText() + ", " + dateTxtField.getText() + ", " + startTimeTxtField.getText());
             //deletePopUpStg.close();
         });
@@ -293,6 +306,61 @@ public class ApptController
 		}
 		
 			return inputFailures;
+	}
+	
+	
+	public void findAppt(String apptName, String date, String startTime, Label searchFailureMsg)
+	{
+		boolean found = false;
+		
+		for(int i = 0; i < apptMainVBOX.getChildren().size(); i++)
+		{
+			VBox innerBox = (VBox) apptMainVBOX.getChildren().get(i); //takes in the inner VBOX (Node) at that index
+															   //in the main VBOX
+			
+			TextFlow apptContainer = (TextFlow) innerBox.getChildren().get(NAME_INDEX);
+			
+			Label innerVBOXApptName = (Label) apptContainer.getChildren().get(1); //second item in
+																				//textflow, has appt label 
+																				// name
+
+			if(innerVBOXApptName.getText().equals(apptName))
+			{
+				System.out.println("ApptContainer Child: " +  innerVBOXApptName.getText());
+				System.out.println("Appt Name: " + apptName);
+				
+				//Getting the next two TextFlows to get the name data
+				TextFlow dateContainer = (TextFlow) innerBox.getChildren().get(DATE_INDEX); 
+				TextFlow startContainer = (TextFlow) innerBox.getChildren().get(START_TIME_INDEX);
+				
+				Label innerVBOXDate = (Label) dateContainer.getChildren().get(1);
+				Label innerVBOXStartTime = (Label) startContainer.getChildren().get(1);
+				
+				if(innerVBOXDate.getText().equals(date) && innerVBOXStartTime.getText().equals(startTime))
+				{
+					System.out.println("DateContainer Child: " +  innerVBOXDate.getText());
+					System.out.println("Date Name: " + date);
+					
+					System.out.println("StartContainer Child: " + innerVBOXStartTime.getText());
+					System.out.println("Start Time Name: " + startTime);
+
+					removeAndDisplay(i);
+					found = true;
+				}
+			}
+		}// end for
+		
+		searchFailureMsg.setText("Could not find the appointment: " + apptName + ", on " + date + " , starting at " + startTime);
+		searchFailureMsg.setVisible(true);
+		
+		
+	}
+	
+	public void removeAndDisplay(int mainIndex)
+	{
+		apptMainVBOX.getChildren().remove(mainIndex);
+		
+		System.out.println("Removed!");
 	}
 	
 	
