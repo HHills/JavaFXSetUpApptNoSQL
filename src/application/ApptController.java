@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
@@ -174,6 +175,13 @@ public class ApptController
 		deleteOptionChosenBtn.setStyle("-fx-background-radius: 20; " + "-fx-background-color: #eb8888; " + "-fx-font-weight: bold;");
 		deleteOptionChosenBtn.setPrefWidth(100);
 		
+		Button deleteAllBtn = new Button("Delete All");
+		deleteAllBtn.setStyle("-fx-background-radius: 20; " + "-fx-background-color: #eb8888; " + "-fx-font-weight: bold;");
+		deleteAllBtn.setPrefWidth(100);
+		
+		HBox deleteBtnContainer = new HBox(200, deleteOptionChosenBtn, deleteAllBtn);
+		deleteBtnContainer.setAlignment(Pos.CENTER);
+
 		
 	    Image textErrorImg = new Image("file:Resources/exclamation.png");
 		ImageView apptErrorImg = new ImageView(textErrorImg);
@@ -234,7 +242,7 @@ public class ApptController
 		spacer2.setPrefHeight(45);
 		 
 		VBox deleteVBOX = new VBox(10, apptContainer, apptNameTxtField, dateContainer, dateTxtField, startContainer, startTimeTxtField,
-								   spacer1, apptWarningMsg, dateWarningMsg, startWarningMsg, searchFailureMsg, spacer2, deleteOptionChosenBtn);
+								   spacer1, apptWarningMsg, dateWarningMsg, startWarningMsg, searchFailureMsg, spacer2, deleteBtnContainer);
 	    deleteVBOX.setPadding(new Insets(20));
 	    deleteVBOX.setAlignment(Pos.CENTER);
 	    deleteVBOX.setStyle("-fx-background-color: #e9edf5;");
@@ -267,10 +275,12 @@ public class ApptController
 	    			deletePopUpStg.close();
 	    		}
 	    	}
-	    	
-            //System.out.println("User entered: " + apptNameTxtField.getText() + ", " + dateTxtField.getText() + ", " + startTimeTxtField.getText());
-            //deletePopUpStg.close();
         });
+	    
+	    deleteAllBtn.setOnAction(e -> {
+	    	displayAllDeletionConfirmation();
+	    	deletePopUpStg.close();
+	    });
 	     
 	    deletePopUpStg.setScene(deleteScene);
 	    deletePopUpStg.showAndWait();
@@ -386,6 +396,72 @@ public class ApptController
 
 		alert.showAndWait();
 
+	}
+	
+	public void displayAllDeletionConfirmation()
+	{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirming Deletion of All Appointments...");
+		alert.setHeaderText(null);
+		alert.setContentText("Are you sure you want to delete all existing appointments?");
+		
+		ButtonType yesType = new ButtonType("Yes");
+		ButtonType noType = new ButtonType("No");
+		
+        alert.getButtonTypes().setAll(yesType, noType);
+		
+		Button yesButton = (Button) alert.getDialogPane().lookupButton(yesType);
+        yesButton.setStyle("-fx-background-color: #afd1fa; -fx-background-radius: 30; -fx-font-weight: bold;");
+		
+        Button noButton = (Button) alert.getDialogPane().lookupButton(noType);
+        noButton.setStyle("-fx-background-color: #c2c6cc; -fx-background-radius: 30; -fx-font-weight: bold;");
+		
+		
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("file:Resources/TASKBAR AND WINDOW ICON AETHERCORE LOGO DELETE VERSION.png"));  // changing window icon
+
+		alert.showAndWait().ifPresent(response -> {
+			if(response ==  yesType)
+			{
+				apptMainVBOX.getChildren().clear();
+				allDeletedSuccessfulPopUp();
+			}
+			else
+			{
+				allDeletedStopped();
+			}
+			
+		});
+	}
+	
+	public void allDeletedSuccessfulPopUp()
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Successful Deletion");
+		alert.setHeaderText(null);
+		alert.setContentText("All appointments have been deleted!");
+		
+		
+		
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("file:Resources/TASKBAR AND WINDOW ICON AETHERCORE LOGO DELETE VERSION.png"));  // changing window icon
+
+		alert.showAndWait();
+	}
+	
+	public void allDeletedStopped()
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Unsuccessful Deletion");
+		alert.setHeaderText(null);
+		alert.setContentText("No appointments have been deleted.");
+		
+		
+		
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("file:Resources/TASKBAR AND WINDOW ICON AETHERCORE LOGO DELETE VERSION.png"));  // changing window icon
+
+		alert.showAndWait();
 	}
 	
 	public void saveData()
